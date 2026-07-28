@@ -1,0 +1,11 @@
+{
+	"mcpServers": {
+		"ifconfig-mcp": {
+			"command": "bash",
+			"args": [
+				"-c",
+				"source \"$HOME/.nvm/nvm.sh\" && exec npx -y ifconfig-mcp"
+			]
+		}
+	}
+}
