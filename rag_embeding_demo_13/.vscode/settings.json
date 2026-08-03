@@ -1,0 +1,23 @@
+{
+  "python.defaultInterpreterPath": "/opt/anaconda3/envs/py310/bin/python",
+  "python.condaPath": "/opt/anaconda3/bin/conda",
+  "python.terminal.activateEnvironment": true,
+  "python-envs.defaultEnvManager": "ms-python.python:conda",
+  "python-envs.defaultPackageManager": "ms-python.python:conda",
+  "python.analysis.extraPaths": [
+    "/opt/anaconda3/envs/py310/lib/python3.10/site-packages"
+  ],
+  "terminal.integrated.defaultProfile.osx": "zsh-py310",
+  "terminal.integrated.profiles.osx": {
+    "zsh-py310": {
+      "path": "/bin/zsh",
+      "args": [
+        "-c",
+        "source /opt/anaconda3/etc/profile.d/conda.sh && conda activate py310 && exec zsh"
+      ]
+    },
+    "zsh": {
+      "path": "/bin/zsh"
+    }
+  }
+}
