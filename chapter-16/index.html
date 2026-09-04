@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Multi-Agent Diagram</title>
+    <!-- Font Awesome for icons -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #111827; /* 背景 */
+        --panel: #1f2937; /* 模块面板色 */
+        --border: #374151; /* 虚线框颜色 */
+        --text: #e5e7eb; /* 文字颜色 */
+        --accent: #a855f7; /* 品牌主色 */
+        --tool: #4b5563; /* 工具背景 */
+      }
+
+      * {
+        box-sizing: border-box;
+        font-family: Inter, 'Segoe UI', Helvetica, Arial, sans-serif;
+      }
+
+      body {
+        margin: 0;
+        padding: 48px 24px;
+        background: var(--bg);
+        display: flex;
+        justify-content: center;
+        gap: 48px;
+        flex-wrap: wrap;
+        color: var(--text);
+      }
+
+      /* —— 单个 Agent —— */
+      .agent {
+        position: relative;
+        width: 280px;
+        padding: 24px 20px 72px;
+        background: var(--panel);
+        border: 2px dashed var(--border);
+        border-radius: 14px;
+      }
+
+      .agent__title {
+        text-align: center;
+        margin: 0 0 24px;
+        font-size: 20px;
+        font-weight: 600;
+      }
+
+      .stack {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+      }
+
+      /* 工具块 */
+      .tool {
+        background: var(--tool);
+        padding: 12px 16px;
+        border-radius: 8px;
+        text-align: center;
+        font-size: 15px;
+        line-height: 1.45;
+        color: #fff;
+        max-width: 200px;
+      }
+
+      /* 机器人 & 大脑图标 */
+      .icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        background: var(--accent);
+        color: #fff;
+        font-size: 28px;
+      }
+
+      .icon--brain {
+        position: absolute;
+        right: 32px;
+        top: 56px;
+        background: transparent;
+        color: var(--accent);
+        font-size: 40px;
+      }
+
+      /* Prompt 方块 */
+      .prompt {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 48px;
+        height: 48px;
+        border: 2px solid var(--accent);
+        border-radius: 8px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: 700;
+        color: var(--accent);
+      }
+
+      /* Memory 圆柱体 */
+      .memory {
+        position: relative;
+        width: 64px;
+        height: 60px;
+        border: 2px solid var(--accent);
+        border-radius: 8px;
+      }
+      .memory::before,
+      .memory::after {
+        content: '';
+        position: absolute;
+        left: 8px;
+        right: 8px;
+        height: 8px;
+        border-top: 2px solid var(--accent);
+        border-radius: 50%;
+      }
+      .memory::before {
+        top: 8px;
+      }
+      .memory::after {
+        bottom: 8px;
+      }
+
+      /* 机器人 ⇣ Memory 虚线 */
+      .dashed {
+        position: absolute;
+        top: 128px;
+        left: 50%;
+        height: 80px;
+        border-left: 2px dashed var(--accent);
+        transform: translateX(-50%);
+      }
+
+      /* Pulse 动效 */
+      @media (prefers-reduced-motion: no-preference) {
+        .pulse {
+          animation: pulse 2.6s ease-in-out infinite;
+        }
+        @keyframes pulse {
+          0%,
+          100% {
+            box-shadow: 0 0 0 0 rgba(168, 85, 247, 0.6);
+          }
+          50% {
+            box-shadow: 0 0 10px 6px rgba(168, 85, 247, 0.2);
+          }
+        }
+      }
+
+      /* —— Agent 间连线 —— */
+      .connector {
+        position: absolute;
+        right: -60px;
+        top: 50%;
+        width: 120px;
+        height: 2px;
+        background: var(--accent);
+      }
+      .connector::after {
+        content: '';
+        position: absolute;
+        right: 0;
+        top: -6px;
+        border: 6px solid transparent;
+        border-left-color: var(--accent);
+      }
+
+      /* 让最后一个 Agent 不显示向右连线 */
+      .agent:last-of-type .connector {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Research Agent -->
+    <section class="agent">
+      <h2 class="agent__title">Research Agent</h2>
+      <div class="stack">
+        <div class="tool">Tool to search<br />on internet</div>
+        <div class="icon pulse"><i class="fa-solid fa-robot"></i></div>
+        <span class="dashed"></span>
+        <div class="memory"></div>
+      </div>
+      <div class="icon icon--brain"><i class="fa-solid fa-brain"></i></div>
+      <div class="prompt">$&gt;</div>
+      <div class="connector"></div>
+    </section>
+
+    <!-- Planning Agent -->
+    <section class="agent">
+      <h2 class="agent__title">Planning Agent</h2>
+      <div class="stack">
+        <div class="tool">Tool to save<br />article in a file</div>
+        <div class="icon pulse"><i class="fa-solid fa-robot"></i></div>
+        <span class="dashed"></span>
+        <div class="memory"></div>
+      </div>
+      <div class="icon icon--brain"><i class="fa-solid fa-brain"></i></div>
+      <div class="prompt">$&gt;</div>
+      <div class="connector"></div>
+    </section>
+
+    <!-- Execution Agent -->
+    <section class="agent">
+      <h2 class="agent__title">Execution Agent</h2>
+      <div class="stack">
+        <div class="tool">Tool to publish<br />content via API</div>
+        <div class="icon pulse"><i class="fa-solid fa-robot"></i></div>
+        <span class="dashed"></span>
+        <div class="memory"></div>
+      </div>
+      <div class="icon icon--brain"><i class="fa-solid fa-brain"></i></div>
+      <div class="prompt">$&gt;</div>
+    </section>
+
+    <script>
+      /* 预留：在这里可加入箭头流动等动态效果 */
+    </script>
+  </body>
+</html>
